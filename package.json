@@ -1,0 +1,38 @@
+{
+  "name": "react-native-gp-utils",
+  "version": "1.0.0",
+  "description": "对react-native全局进行配置,对内置对象原型链增加方法,增加常用全局方法.",
+  "main": "src",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "react-native",
+    "rn",
+    "RN",
+    "global",
+    "utils",
+    "function",
+    "funcions",
+    "func",
+    "Array",
+    "Date",
+    "Object",
+    "String",
+    "Number",
+    "Test",
+    "Debug",
+    "Random",
+    "RegExp",
+    "Common",
+    "Math"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geek-prince/react-native-gp-utils.git"
+  },
+  "author": "geekPrince",
+  "license": "MIT"
+}
