@@ -1,4 +1,4 @@
-# react-native-pg-utils
+# react-native-gp-utils
 
 对react-native全局进行配置,对内置对象原型链增加方法,增加常用全局方法.
 
@@ -8,7 +8,7 @@ github地址: https://github.com/geek-prince/react-native-gp-utils
 
 npm地址: https://www.npmjs.com/package/react-native-gp-utils
 
-{{TOC}}
+[TOC]
 
 ## 安装
 `npm install react-native-gp-utils --save`
@@ -20,15 +20,15 @@ npm地址: https://www.npmjs.com/package/react-native-gp-utils
 
 ### 三种侵入式等级(根据情况选择其中一种方式导入)
 - 0:非侵入式:每个要用到的方法的文件中都要导入指定的工具类,并以`工具类.方法名`的方式调用方法.
--- 优点:不会占用任何一个全局变量和任何一个内建对象(Array,String对象等)的prototype原型链属性,不会造成全局变量污染
--- 缺点:每个要使用的文件都要导入相应的库文件,不方便
+  - 优点:不会占用任何一个全局变量和任何一个内建对象(Array,String对象等)的prototype原型链属性,不会造成全局变量污染
+  - 缺点:每个要使用的文件都要导入相应的库文件,不方便
          
 - 1:部分侵入式(推荐):只用在入口文件中导入一次即可,并以`工具类.方法名`方式调用方法,内建对象以`arr.unshiftFromIndex`的形式调用.
--- 优点:相对方便,只用入口文件导入一次,其他文件都可以使用.
--- 缺点:会占用与各个工具类名相同的全局变量的属性(也可把各个工具类名定义为自定义的变量名),以及各个内建对象(Array,String对象等)的prototype原型链的与方法名相同的属性
+  - 优点:相对方便,只用入口文件导入一次,其他文件都可以使用.
+  - 缺点:会占用与各个工具类名相同的全局变量的属性(也可把各个工具类名定义为自定义的变量名),以及各个内建对象(Array,String对象等)的prototype原型链的与方法名相同的属性
 - 2:完全侵入式:只用在入口文件中导入一次即可,并以`方法名`方式直接调用方法,内建对象以`arr.unshiftFromIndex`的形式调用.
--- 优点:非常方便,在入口文件中导入一次即可,在任何地方使用任何方法,只用直接用方法名就可以调用方法.
--- 缺点:会占据各个工具类中所有和方法名相同的全局变量(会造成全局变量污染),和各个内建对象(Array,String对象等)的prototype原型链的与方法名相同的属性
+  - 优点:非常方便,在入口文件中导入一次即可,在任何地方使用任何方法,只用直接用方法名就可以调用方法.
+  - 缺点:会占据各个工具类中所有和方法名相同的全局变量(会造成全局变量污染),和各个内建对象(Array,String对象等)的prototype原型链的与方法名相同的属性
 
 ### 三种侵入式等级分别导入插件的方式
 导入库->设置配置选项(可选)->自定义各个库文件名(可选,在侵入式等级1中使用)->给出侵入式等级初始化
@@ -74,8 +74,8 @@ GPUtils.initWtihInvadeScale(2); //完全侵入,不支持自定义名称(因为�
 ```
 
 ### 可配置选项(上面第2步)
-|:-----------:|:-----------:|:-----------:|
 |配置项|说明|默认值|
+|:-----------:|:-----------:|:-----------:|
 |yellowBoxOn|指定警告黄框(即在打印warn警告信息时,模拟器先放出现的警告黄框)是否开启|false:关闭(系统默认是开启)|
 |releaseLogOn|指定是否在release发布版本中打印log的信息(release版本中系统默认是不会将console.log打印除去的,但是又不可能发布前特地删一次所有注释,所以直接导入库就行了,默认就会在release版本清除log打印)|false:关闭release版本中的打印|
 
@@ -88,14 +88,14 @@ GPUtils.initWtihInvadeScale(2); //完全侵入,不支持自定义名称(因为�
 - RegExpUtils:一些和正则相关的方法(里面全部为normal:普通方法)
 - RandomUtils:一些和随机相关的方法(里面全部为normal:普通方法)
 - 内建对象的工具类:
--- ArrayUtils:对内建对象Array拓展的相关方法(里面的方法全部为baseOnInvadeScale)
--- DateUtils:对内建对象Date拓展的相关方法(里面方法有普通方法,也有both类型)
--- NumberUtils:对内建对象Number拓展的相关方法(里面的方法全部为onlyProto)
--- ObjectUtils:对内建对象Object拓展的相关方法(本来在Object的原型链上加方法会使调用很简便,但是这样的做法被rn拒绝了,所以这里面的方法都是normal:普通方法)
--- StringUtils:对内建对象String拓展的相关方法(里面方法有baseOnInvadeScale类型,也有onlyProto类型,也有both类型)
+  - ArrayUtils:对内建对象Array拓展的相关方法(里面的方法全部为baseOnInvadeScale)
+  - DateUtils:对内建对象Date拓展的相关方法(里面方法有普通方法,也有both类型)
+  - NumberUtils:对内建对象Number拓展的相关方法(里面的方法全部为onlyProto)
+  - ObjectUtils:对内建对象Object拓展的相关方法(本来在Object的原型链上加方法会使调用很简便,但是这样的做法被rn拒绝了,所以这里面的方法都是normal:普通方法)
+  - StringUtils:对内建对象String拓展的相关方法(里面方法有baseOnInvadeScale类型,也有onlyProto类型,也有both类型)
 - 其他方面的工具类:
--- FileUtils:一些和文件相关的方法(里面的方法都是normal:普通方法)
--- DebugUtils:一些在开发或调试中要到的方法(里面的方法都是normal:普通方法)
+  - FileUtils:一些和文件相关的方法(里面的方法都是normal:普通方法)
+  - DebugUtils:一些在开发或调试中要到的方法(里面的方法都是normal:普通方法)
 
 ### 三种侵入式导入调用四种类型方法的方式
 #### 四种类型的方法
@@ -253,8 +253,8 @@ copyArr===arr
 
 - 说明:对数组,对象进行遍历,指定范围进行for循环的统一循环方法
 - 参数:
--- obj:要循环的数组,对象,指定范围的数字
--- callBack:每次循环要做的操作
+  - obj:要循环的数组,对象,指定范围的数字
+  - callBack:每次循环要做的操作
 - 示例:
 
 ```js
@@ -303,7 +303,7 @@ console.log(result);//打印5
 
 - 说明:获取当前调用方法的方法名(调用时getFuncName(arguments))(在es6下的部分方法中会报错)(在DebugUtils中的logFuncName中会用到该方法)
 - 参数:
--- args:要打印方法名的方法的arguments,要在方法中将arguments当做参数传进来(因为rn中没有arguments.caller)
+  - args:要打印方法名的方法的arguments,要在方法中将arguments当做参数传进来(因为rn中没有arguments.caller)
 - 示例:
 
 ```js
@@ -317,9 +317,9 @@ function Test() {
 
 - 说明:判断传入参数是不是一个数字或一个字符串类型的数字(1 '37' 1.73 '21.43')(还可以指定判断小数点后可以最多有多少位)
 - 参数:
--- strNum:传入的要判断的参数(数字,字符串)
--- maxDecimalNum:如果要限制最多小数位数时传入的最多位数的数字参数(如果传入的参数strNum的小数位数超过toFixed给定的值就返回false,没超过返回true),0时限制为只能是整数,null时为无限制(只要是数字就行)(默认为null)
--- ifTrim 判断时是否忽略左右空格(默认为true,忽略)
+  - strNum:传入的要判断的参数(数字,字符串)
+  - maxDecimalNum:如果要限制最多小数位数时传入的最多位数的数字参数(如果传入的参数strNum的小数位数超过toFixed给定的值就返回false,没超过返回true),0时限制为只能是整数,null时为无限制(只要是数字就行)(默认为null)
+  - ifTrim 判断时是否忽略左右空格(默认为true,忽略)
 - 特殊用法:可以用在用户在输入框TextInput中输入数字之后的校验与限制
 
 ```js
@@ -335,9 +335,9 @@ isNumeric(123.67,2,true,true);// 结果true
 
 - 说明:将数字或字符串类型的数字前面加上'0'或指定的字符,到达指定的长度,并返回字符串(为了方便调用,该方法被加入到NumberUtils和StringUtils中作为Number与String对象的原型链方法,名称为toFixedLenStr,详情看相应的方法说明)
 - 参数:
--- num 要转化的数字或字符串类型的数字
--- len 最后输出的字符串的长度(默认为2)
--- char 指定填充数字前面的字符为什么,默认为"0"
+  - num 要转化的数字或字符串类型的数字
+  - len 最后输出的字符串的长度(默认为2)
+  - char 指定填充数字前面的字符为什么,默认为"0"
 - 示例:
 
 ```js
@@ -400,11 +400,11 @@ accDiv(5.67,8.1) //结果为0.7
 
 - 说明:将一个字符串类型的数字(或数字类型的值)进行处理(保留小数后几位,舍去部分是四舍五入,还是向上/向下取整)(为了更方便的处理类似问题,这个方法在NumberUtils,StringUtils和ArrayUtils中都被相应的方法(toFloat,toFloatStr)用到,并加入到Number对象,String对象和Array对象的原型链中了,详情看相应的方法说明.)
 - 参数:
--- strNum 要处理的字符串类型的数字(或数字类型的值)
--- toFixed 要保留的小数位数. 0为不保留小数只取整数,null时为保持原有小数位数(默认为2)
--- type 是四舍五入,还是向上/向下取整. 'round'为四舍五入;'up'或'ceil'为向上取整;'sub'或'floor'为向下取整.  向上/向下取整同时适用于小数 dealWithFloatStr('1321.123459',5,'sub') 执行后"1321.12345"
--- inputType 输入的类型可以为什么. 'both'时数字或数字字符串都会进行处理;'num'时只会处理数字(此时传入字符串的话会原样返回);'str'时只会处理数字字符串(此时传入数字的话会原样返回).(默认为both)
--- returnType 返回类型为什么. true时为字符串,false时为数字类型
+  - strNum 要处理的字符串类型的数字(或数字类型的值)
+  - toFixed 要保留的小数位数. 0为不保留小数只取整数,null时为保持原有小数位数(默认为2)
+  - type 是四舍五入,还是向上/向下取整. 'round'为四舍五入;'up'或'ceil'为向上取整;'sub'或'floor'为向下取整.  向上/向下取整同时适用于小数 dealWithFloatStr('1321.123459',5,'sub') 执行后"1321.12345"
+  - inputType 输入的类型可以为什么. 'both'时数字或数字字符串都会进行处理;'num'时只会处理数字(此时传入字符串的话会原样返回);'str'时只会处理数字字符串(此时传入数字的话会原样返回).(默认为both)
+  - returnType 返回类型为什么. true时为字符串,false时为数字类型
 - 示例:
 
 ```js
@@ -438,13 +438,13 @@ dealWithFloatStr(12.3456,3,'sub','num',false) //结果为12.345
 
 - 说明:在浏览器中打开指定url的方法
 - 参数:
--- url:要打开的url
+  - url:要打开的url
 
 > openPhone(phoneNum)
 
 - 说明:打开电话拨号界面,并在里面填入phoneNum的电话号码
 - 参数:
--- phoneNum:要在拨号界面填入的号码
+  - phoneNum:要在拨号界面填入的号码
 
 > setClipboard(test)
 
@@ -455,8 +455,8 @@ dealWithFloatStr(12.3456,3,'sub','num',false) //结果为12.345
 
 - 说明:fetch方法以get方式请求json数据的简单封装
 - 参数:
--- url:url地址,即fetch的第一个参数
--- args:可选参数,fetch的第二个参数,可以用来定制 HTTP 请求一些参数。你可以指定 header 参数，或是指定使用 POST 方法，又或是提交数据等等
+  - url:url地址,即fetch的第一个参数
+  - args:可选参数,fetch的第二个参数,可以用来定制 HTTP 请求一些参数。你可以指定 header 参数，或是指定使用 POST 方法，又或是提交数据等等
 - 示例:
 
 ```js
@@ -473,9 +473,9 @@ get('http://baike.baidu.com/api/openapi/BaikeLemmaCardApi?scope=103&format=json&
 
 - 说明:fetch方法以post方式请求json数据的简单封装
 - 参数:
--- url:url地址,即fetch的第一个参数
--- bodyData:post的body数据.可以是对象,在'Content-Type': 'application/json'时(默认是这个);可以是字符串,在'Content-Type': 'application/x-www-form-urlencoded'时.
--- headers:给出相应的头部信息.
+  - url:url地址,即fetch的第一个参数
+  - bodyData:post的body数据.可以是对象,在'Content-Type': 'application/json'时(默认是这个);可以是字符串,在'Content-Type': 'application/x-www-form-urlencoded'时.
+  - headers:给出相应的头部信息.
 - 示例:
 
 ```js
@@ -520,8 +520,8 @@ post('http://baike.baidu.com/api/openapi/BaikeLemmaCardApi',
 
 - 说明:将对象中的key或数组中的元素符合指定的正则表达的放入到数组中,并返回
 - 参数:
--- obj:传入的对象或数组
--- reg:传入的正则表达式
+  - obj:传入的对象或数组
+  - reg:传入的正则表达式
 - 示例:
 
 ```js
@@ -549,8 +549,8 @@ pushRegExpKeyToArr(arr,/ro.*ot/);
 
 - 说明:从数组中获得随机的数组元素(带有比重的,每个元素获得概率可以自己指定)
 - 参数:
--- arr:要从中随机元素的数组
--- weightArr:指定比重的数组(该数组元素个数应该与arr中的元素个数相同,而且每个元素都是int类型)
+  - arr:要从中随机元素的数组
+  - weightArr:指定比重的数组(该数组元素个数应该与arr中的元素个数相同,而且每个元素都是int类型)
 - 示例:
 
 ```js
@@ -567,9 +567,9 @@ loop(10,()=>{
 
 - 说明:获取指定个数的随机字符串
 - 参数:
--- num:生成随机字符串的个数(默认为4)
--- type:指定生成随机字符串的类型.'num':只有数字,'char':只有字母,'lowChar':只有小写字母,'upChar':只有大写字母,'all':字母数字都有(默认为'all')
--- ifEq:如果type为"all"时,字母出现概率和数字出现概率是否要一致(是概率是否一致,不是数量是否一致),布尔类型(默认为true,false时字母概率大于数字)
+  - num:生成随机字符串的个数(默认为4)
+  - type:指定生成随机字符串的类型.'num':只有数字,'char':只有字母,'lowChar':只有小写字母,'upChar':只有大写字母,'all':字母数字都有(默认为'all')
+  - ifEq:如果type为"all"时,字母出现概率和数字出现概率是否要一致(是概率是否一致,不是数量是否一致),布尔类型(默认为true,false时字母概率大于数字)
 - 示例:
 
 ```js
@@ -590,17 +590,17 @@ getRandomStr(16,'all',true)
 
 - 说明:查看元素是否在数组中的方法
 - 参数:
--- value:要检查是否存在的元素
--- allEqual:是否全等判断.true时为必须全等===,false为==.(默认为true)
+  - value:要检查是否存在的元素
+  - allEqual:是否全等判断.true时为必须全等===,false为==.(默认为true)
 - 返回值:返回布尔值,表示是否存在指定元素
 
 > deleteValue(value,allEqual=true,deleteAll=true)
 
 - 说明:从数组中删除指定元素的方法
 - 参数:
--- value:要删除的元素
--- allEqual:是否要全等的元素才删除.true时为必须全等===,false为==.(默认为true)
--- deleteAll:是否要删除指定的全部元素.true时为全部删除,false时为只删除第一个(默认为true)
+  - value:要删除的元素
+  - allEqual:是否要全等的元素才删除.true时为必须全等===,false为==.(默认为true)
+  - deleteAll:是否要删除指定的全部元素.true时为全部删除,false时为只删除第一个(默认为true)
 - 返回值:数组的元素会被删除,方法返回值也就是这个删除过元素的数组,所以你可以对它进行链式操作
 - 示例:
 
@@ -656,9 +656,9 @@ arr.pushFromIndex(2); //结果为[0, 1, 3, 4, 5, 2]
 
 - 说明:把数组中指定位置的元素移动到指定位置去
 - 参数:
--- fromIndex:要移动的索引
--- toIndex:移动到哪个位置的索引
--- 返回值:返回的就是处理之后的该数组,所以可以对其进行链式操作
+  - fromIndex:要移动的索引
+  - toIndex:移动到哪个位置的索引
+  - 返回值:返回的就是处理之后的该数组,所以可以对其进行链式操作
 - 特殊用法:比如用户手指滑动列表项,改变列表项顺序
 - 示例:
 
@@ -682,13 +682,13 @@ arr1===arr //返回false,不是同一个对象
 
 - 说明:将数组内的所有数字或数字字符串转换为指定小数位数的数字或数字字符串(其中的每个元素调用MathUtils中的dealWithFloatStr方法,详情可以去查看该方法)
 - 参数:
--- args 因为参数比较多,所以以对象的方式传入可选参数
---- ifChangeArr 表示是否直接改变原数组,为true时直接改变调用方法的数组,此时返回值没有意义所以是个空数组;false时不改变原数组,而是返回一个新数组,要在外面用变量接收(默认为ture,改变)
---- ifRecursion 表示是否递归(是否将数组中的数组/对象也进行该方法的调用)(默认为true)
---- toFixed 保留小数点后几位(与dealWithFloatStr方法中一样)(默认为2)
---- type 四舍五入,还是向上/向下取整(与dealWithFloatStr方法中一样)(默认为'round',四舍五入)
---- inputType 要进行处理操作的类型.'both'时数字或数字字符串都会进行处理;'num'时只会处理数字;'str'时只会处理数字字符串.(与dealWithFloatStr方法中一样)(默认为'both',都进行处理)
---- outputType 处理后返回的类型.'origin'时保持原类型,输入是数字返回就是数字,输入是字符串,返回就是字符串;'num'时不管是数字还是字符串类型的数字都会转换为数字;'str'时不管是数字还是字符串类型的数字都会转换为字符串类型的数字.(默认为''origin,保持原类型)
+  - args 因为参数比较多,所以以对象的方式传入可选参数
+    - ifChangeArr 表示是否直接改变原数组,为true时直接改变调用方法的数组,此时返回值没有意义所以是个空数组;false时不改变原数组,而是返回一个新数组,要在外面用变量接收(默认为ture,改变)
+    - ifRecursion 表示是否递归(是否将数组中的数组/对象也进行该方法的调用)(默认为true)
+    - toFixed 保留小数点后几位(与dealWithFloatStr方法中一样)(默认为2)
+    - type 四舍五入,还是向上/向下取整(与dealWithFloatStr方法中一样)(默认为'round',四舍五入)
+    - inputType 要进行处理操作的类型.'both'时数字或数字字符串都会进行处理;'num'时只会处理数字;'str'时只会处理数字字符串.(与dealWithFloatStr方法中一样)(默认为'both',都进行处理)
+    - outputType 处理后返回的类型.'origin'时保持原类型,输入是数字返回就是数字,输入是字符串,返回就是字符串;'num'时不管是数字还是字符串类型的数字都会转换为数字;'str'时不管是数字还是字符串类型的数字都会转换为字符串类型的数字.(默认为''origin,保持原类型)
 - 示例:
 
 ```js
@@ -711,7 +711,7 @@ arr.eachToFloat({toFixed:3,type:'sub',inputType:'str'});
 - 说明:根据传进来的日期(可以是Date对象,也可以是字符串类型的日期,也可以是时间戳的Int)将其转换为日期对象.(为了方便使用该方法分别在NumberUtils和StringUtils中加入到了Number和String的原型链中,名称为toDate)
 - 方法类型:普通方法
 - 参数:
--- date 日期值,可以是Date对象,也可以是字符串,也可以是时间戳的Int.(字符串支持的形式:'2018-08-07 15:51:59','15:51:59 2018-08-07','15:51:59 08/07/2018','08/07/2018'等等,反正只要不是太奇葩的都可以转成功)
+  - date 日期值,可以是Date对象,也可以是字符串,也可以是时间戳的Int.(字符串支持的形式:'2018-08-07 15:51:59','15:51:59 2018-08-07','15:51:59 08/07/2018','08/07/2018'等等,反正只要不是太奇葩的都可以转成功)
 - 示例:
 
 ```js
@@ -724,8 +724,8 @@ getDateObj(1455241600000); //可以是时间戳的Int
 - 说明:将日期对象格式化为指定格式的字符串形式
 - 方法类型:both(特别说明:原型链上的方法名为了简介,方法名为format)
 - 参数:
--- date 要格式化的日期(可以是Date对象,也可以是字符串类型的日期,也可以是时间戳的Int)
--- formatStr 要格式化为什么形式的字符串.M表示月,d表示日,h表示小时,m表示分钟,s表示秒,q表示季度,S表示毫秒(比如默认为"yyyy-MM-dd hh:mm:ss")
+  - date 要格式化的日期(可以是Date对象,也可以是字符串类型的日期,也可以是时间戳的Int)
+  - formatStr 要格式化为什么形式的字符串.M表示月,d表示日,h表示小时,m表示分钟,s表示秒,q表示季度,S表示毫秒(比如默认为"yyyy-MM-dd hh:mm:ss")
 - 示例:
 
 ```js
@@ -742,12 +742,12 @@ date.format('yyyy/MM/dd hh:mm') //因为是both类型的方法,所以可以通�
 - 说明:在当前日期上加减(几天,几月,几年),并且返回处理后的日期对象
 - 方法类型:both
 - 参数:
--- date 在哪个日期的基础上增减,可接收日期对象或字符串类型的日期或Int类型的时间戳(传入的是日期对象时).
--- num 要加上或减去(年月日)的数量
--- dayOrMouth 要加减的是(日 月 还是年...), 'year','month','day','hour','min','second'(默认为'day',天为单位)
--- addOrSub 加还是减.(默认是'add',加)
--- ifChangeDate 传入的date为日期对象时,是否要改变原始的date对象值(即变成加/减后的日期对象)(默认为true,改变)
--- isBehindZero 当设置为true时,比如加一天后的时间为第二天的0点0分0秒,加一月时为第二月的第一天的0点0分0秒;减一天后的时间为当天的0点0分0秒,减一月后为当月的第一天的0点0分0秒.(默认为false)
+  - date 在哪个日期的基础上增减,可接收日期对象或字符串类型的日期或Int类型的时间戳(传入的是日期对象时).
+  - num 要加上或减去(年月日)的数量
+  - dayOrMouth 要加减的是(日 月 还是年...), 'year','month','day','hour','min','second'(默认为'day',天为单位)
+  - addOrSub 加还是减.(默认是'add',加)
+  - ifChangeDate 传入的date为日期对象时,是否要改变原始的date对象值(即变成加/减后的日期对象)(默认为true,改变)
+  - isBehindZero 当设置为true时,比如加一天后的时间为第二天的0点0分0秒,加一月时为第二月的第一天的0点0分0秒;减一天后的时间为当天的0点0分0秒,减一月后为当月的第一天的0点0分0秒.(默认为false)
 - 示例:
 
 ```js
@@ -779,10 +779,10 @@ date.addOrSubDateFormat(3); ////因为是both类型的方法,所以可以通过�
 - 说明:计算两个日期之间的时间差(计算结果是向上取整的,返回都是整数,比如diffType时间差单位'day'天时,如果两个时间相减后不足1天,返回就是1)
 - 方法类型:both(特别说明:原型链上的方法名为了简介,方法名为diff)
 - 参数:
--- startTime 开始日期时间(可以是Date对象,也可以是字符串类型的日期,也可以是时间戳的Int)
--- endTime 结束日期时间(可以是Date对象,也可以是字符串类型的日期,也可以是时间戳的Int)
--- diffType 最后获得的时间差的单位.'year':年,'month':月,'day':日,'hour':时,'minute':分,'second':秒.(默认为'day',天)
--- ifAbs 对最终的时间差是否取绝对值(默认为true,取绝对值)
+  - startTime 开始日期时间(可以是Date对象,也可以是字符串类型的日期,也可以是时间戳的Int)
+  - endTime 结束日期时间(可以是Date对象,也可以是字符串类型的日期,也可以是时间戳的Int)
+  - diffType 最后获得的时间差的单位.'year':年,'month':月,'day':日,'hour':时,'minute':分,'second':秒.(默认为'day',天)
+  - ifAbs 对最终的时间差是否取绝对值(默认为true,取绝对值)
 - 示例:
 
 ```js
@@ -819,8 +819,8 @@ num.div(7)
 
 - 说明:将CommonUtils中的numToFixedLenStr方法加入到Number的原型链中
 - 参数:
--- len:到达多少长度
--- char:填充的字符
+  - len:到达多少长度
+  - char:填充的字符
 - 调用方式(具体用法,看CommonUtils中的方法介绍):
 
 ```js
@@ -832,8 +832,8 @@ num.toFixedLenStr(4,'*') //结果为"**18"
 
 - 说明:将一个数字类型的值进行处理(保留小数后几位,舍去部分是四舍五入,还是向上/向下取整)(返回字符串形式时)(其中调用了MathUtils的dealWithFloatStr方法,参数的具体含义与之相同)
 - 参数:
--- toFixed 保留到小数点后几位,默认为2
--- type 是四舍五入,还是向上/向下取整
+  - toFixed 保留到小数点后几位,默认为2
+  - type 是四舍五入,还是向上/向下取整
 - 调用方式(具体用法,看MathUtils中的方法介绍):
 
 ```js
@@ -870,13 +870,13 @@ num.toDate() //结果转化为日期对象 Fri Feb 12 2016 09:46:40 GMT+0800 (CS
 
 - 说明:将数组内的所有数字或数字字符串转换为指定小数位数的数字或数字字符串(其中的每个元素调用MathUtils中的dealWithFloatStr方法,详情可以去查看该方法)(和ArrayUtils中的eachToFloat方法基本一致,这里就不做过多的示例了)
 - 参数:
--- obj 要进行处理的obj对象
--- args 因为参数比较多,所以以对象的方式传入可选参数
---- ifRecursion 表示是否递归(是否将数组中的数组/对象也进行该方法的调用)(默认为true)
---- toFixed 保留小数点后几位(与dealWithFloatStr方法中一样)(默认为2)
---- type 四舍五入,还是向上/向下取整(与dealWithFloatStr方法中一样)(默认为'round',四舍五入)
---- inputType 要进行处理操作的类型.'both'时数字或数字字符串都会进行处理;'num'时只会处理数字;'str'时只会处理数字字符串.(与dealWithFloatStr方法中一样)(默认为'both',都进行处理)
---- outputType 处理后返回的类型.'origin'时保持原类型,输入是数字返回就是数字,输入是字符串,返回就是字符串;'num'时不管是数字还是字符串类型的数字都会转换为数字;'str'时不管是数字还是字符串类型的数字都会转换为字符串类型的数字.(默认为''origin,保持原类型)
+  - obj 要进行处理的obj对象
+  - args 因为参数比较多,所以以对象的方式传入可选参数
+    - ifRecursion 表示是否递归(是否将数组中的数组/对象也进行该方法的调用)(默认为true)
+    - toFixed 保留小数点后几位(与dealWithFloatStr方法中一样)(默认为2)
+    - type 四舍五入,还是向上/向下取整(与dealWithFloatStr方法中一样)(默认为'round',四舍五入)
+    - inputType 要进行处理操作的类型.'both'时数字或数字字符串都会进行处理;'num'时只会处理数字;'str'时只会处理数字字符串.(与dealWithFloatStr方法中一样)(默认为'both',都进行处理)
+    - outputType 处理后返回的类型.'origin'时保持原类型,输入是数字返回就是数字,输入是字符串,返回就是字符串;'num'时不管是数字还是字符串类型的数字都会转换为数字;'str'时不管是数字还是字符串类型的数字都会转换为字符串类型的数字.(默认为''origin,保持原类型)
 - 示例:
 
 ```js
@@ -890,12 +890,12 @@ objEachToFloat(obj,{toFixed:3,type:'up'}) //结果为"{"a":10.124,"b":{"a":"10.1
 - 说明:用于获得obj对象中子对象中的子对象...的值.但是有的时候我们不知道对应的位置是否存在数据(比如obj下面可能不存在class对象)这时直接(obj.class.people.name)这样取的话就会报错,这个方法会顺着obj对象的子对象一层一层向下找,只要没有对应的对象就返回null
 - 方法应用场景:要去一个对象指定子对象,子对象的子对象...的值的时候,但是它有可能不存在,还有可能这个对象的父对象就不存在,这时用正常方式取值会报错,这时就要用到这个方法.
 - 参数:
--- obj 最外层的obj对象
--- subObjDatas 要取的是哪个子对象,可以是字符串或数组(看下面的两种调用方式)
--- empty 子对象不存在时返回什么,默认为null
+  - obj 最外层的obj对象
+  - subObjDatas 要取的是哪个子对象,可以是字符串或数组(看下面的两种调用方式)
+  - empty 子对象不存在时返回什么,默认为null
 - 两种调用方式:比如要获得obj.class.people.name的值:
--- 方式1: `getSubObj(obj,'class.people.name')` 这种方式通常用在子对象键名确定,固定,不变的情况
--- 方式2: `getSubObj(obj,['class','people','name'])`. 或者`let a='class',b='people',c='name';getSubObj(obj,[a,b,c]); `  这种方法通常在子对象键名根据变量改变时的情况,使用后面这种形式调用
+  - 方式1: `getSubObj(obj,'class.people.name')` 这种方式通常用在子对象键名确定,固定,不变的情况
+  - 方式2: `getSubObj(obj,['class','people','name'])`. 或者`let a='class',b='people',c='name';getSubObj(obj,[a,b,c]); `  这种方法通常在子对象键名根据变量改变时的情况,使用后面这种形式调用
 - 示例:
 
 ```js
@@ -912,9 +912,9 @@ getSubObj(obj,[a,b,c]); //也可以用这种方式调用
 - 方法作用:该方法是将对象和数组转换为字符串的形式,与JSON.stringify不同的是,不会将对象的键(key)的部分也加上双引号,每个数组元素/对象元素之间不加逗号,值Value为null或undefined时不会被加入其中,也可以配置为false,0,''时都不放入.可以让字符串不加引号.
 - 特殊用法:将对象转换为GraphQL的查询语句(其实该方法就是用于这个功能时写的,不知道GraphQL的同学请忽略)
 - 参数:
--- obj 传入的对象或数组
--- ifNull true时只有键的值为undefined或者null时这组键值才不被放入字符串中;false时,0,''等都不放入
--- num 用于记录递归调用的第几层,也可以在调用时手动给出指定的值作为最后的缩进
+  - obj 传入的对象或数组
+  - ifNull true时只有键的值为undefined或者null时这组键值才不被放入字符串中;false时,0,''等都不放入
+  - num 用于记录递归调用的第几层,也可以在调用时手动给出指定的值作为最后的缩进
 - 示例:
 
 ```js
@@ -946,19 +946,19 @@ gqlObjToString(obj);
 - 方法作用:该方法主要用于对象嵌套比较复杂,希望把键值都抽取出来到最外层的情况
 - 高能预警:此方法有点复杂,不知道我能不能把它讲清楚
 - 参数:
--- obj 要处理的对象(下面说到的父对象就是传入的这个obj)
--- dealWithSameSubKey 如果遇到子对象中有键(key)与父对象中的键重复时的操作.
---- "sub":为以子对象为主(子对象数据覆盖父对象的),
---- "sup":为以父对象为主(子对象数据直接忽略,跳过),
---- "both":为都保留.
----- 比如子对象"test"下的key:"name"命名为"test_name"(多个子对象下有相同key,或父对象中有该key时会这样命名);
----- 在如有子对象中该键名唯一则直接命名为该键名. 比如let obj={bcd:2,cde:{test:'234'}};subObjDataToObj(obj) 这时结果为{bcd: 2, test: "234"}. 此时要在想让键名为"cde_test"这样的形式时,可在allNameKeyArr中加入该键名.
--- separator 第二个参数dealWithSameSubKey值为"both"时子对象名与key之间的分隔符,默认为"_"
--- allNameKeyArr 除重复键名外,需要显示键名全路径的键名.
---- 不传值时,如果一个子对象中有这个键,而且这个键名唯一,这个键名会被直接用在父对象上. 比如let obj={bcd:2,cde:{test:'234'}};subObjDataToObj(obj) 这时结果为{bcd: 2, test: "234"}
---- 手动传入值时,子对象中与sameKeyArr数组中键相同的键名不管父对象中有没有该键名. 比如let obj={bcd:2,cde:{test:'234'}};subObjDataToObj(obj,'both','_',[],['test']) 这时结果为{bcd: 2, cde_test: "234"} (这通常用在有两个或多个子对象中有相同的键名,但是父对象中没有,而且这些子对象中的这些键名还可能只存在其中一个的情况)
--- supKeyArr 用于递归调用时记录向上每层父对象的key的数组(调用时不要手动传入) 这样的话obj.a.b.c就会转换为obj_a_b_c,如果手动传入null/false则返回b_c
--- sameKeyArr 用于递归调用时传递相同重复键名的数组(调用时不用手动传,也可手动传入).给了这个值之后allNameKeyArr值就无效了.
+  - obj 要处理的对象(下面说到的父对象就是传入的这个obj)
+  - dealWithSameSubKey 如果遇到子对象中有键(key)与父对象中的键重复时的操作.
+    - "sub":为以子对象为主(子对象数据覆盖父对象的),
+    - "sup":为以父对象为主(子对象数据直接忽略,跳过),
+    - "both":为都保留.
+      - 比如子对象"test"下的key:"name"命名为"test_name"(多个子对象下有相同key,或父对象中有该key时会这样命名);
+      - 在如有子对象中该键名唯一则直接命名为该键名. 比如let obj={bcd:2,cde:{test:'234'}};subObjDataToObj(obj) 这时结果为{bcd: 2, test: "234"}. 此时要在想让键名为"cde_test"这样的形式时,可在allNameKeyArr中加入该键名.
+  - separator 第二个参数dealWithSameSubKey值为"both"时子对象名与key之间的分隔符,默认为"_"
+  - allNameKeyArr 除重复键名外,需要显示键名全路径的键名.
+    - 不传值时,如果一个子对象中有这个键,而且这个键名唯一,这个键名会被直接用在父对象上. 比如let obj={bcd:2,cde:{test:'234'}};subObjDataToObj(obj) 这时结果为{bcd: 2, test: "234"}
+    - 手动传入值时,子对象中与sameKeyArr数组中键相同的键名不管父对象中有没有该键名. 比如let obj={bcd:2,cde:{test:'234'}};subObjDataToObj(obj,'both','_',[],['test']) 这时结果为{bcd: 2, cde_test: "234"} (这通常用在有两个或多个子对象中有相同的键名,但是父对象中没有,而且这些子对象中的这些键名还可能只存在其中一个的情况)
+  - supKeyArr 用于递归调用时记录向上每层父对象的key的数组(调用时不要手动传入) 这样的话obj.a.b.c就会转换为obj_a_b_c,如果手动传入null/false则返回b_c
+  - sameKeyArr 用于递归调用时传递相同重复键名的数组(调用时不用手动传,也可手动传入).给了这个值之后allNameKeyArr值就无效了.
 - 示例:
 
 ```js
@@ -994,8 +994,8 @@ subObjDataToObj(obj1) //结果为 {a_test: 123, b_c_test: 456, d_c_test: 789, e_
 
 - 说明:将CommonUtils中的numToFixedLenStr方法加入到String的原型链中
 - 参数:
--- len:到达多少长度
--- char:填充的字符
+  - len:到达多少长度
+  - char:填充的字符
 - 调用方式(具体用法,看CommonUtils中的方法介绍):
 
 ```js
@@ -1013,8 +1013,8 @@ numStr.toFixedLenStr(4,'*') //结果为"**18"
 - 说明:将一个字符串类型的数字进行处理(保留小数后几位,舍去部分是四舍五入,还是向上/向下取整)(返回字符串形式时)(其中调用了MathUtils的dealWithFloatStr方法,参数的具体含义与之相同)
 - 方法类型:onlyProto
 - 参数:
--- toFixed 保留到小数点后几位,默认为2
--- type 是四舍五入,还是向上/向下取整
+  - toFixed 保留到小数点后几位,默认为2
+  - type 是四舍五入,还是向上/向下取整
 - 示例:
 
 ```js
@@ -1049,10 +1049,10 @@ numStr.toFixedLenStr(4,'*') //结果为"**18"
 - 方法类型:both
 - 特殊用法:比如从后端获取到一些用户的私密信息(手机号,银行卡号,身份证等)在界面上密文展示时
 - 参数:
--- leftNum 左边明文显示的内容的长度
--- rightNum 右边明文显示的内容的长度
--- middleNum 中间隐藏内容的长度(默认0时,为减去leftNum和rightNum后的长度)
--- secChar 设置密文的字符,默认为'*'
+  - leftNum 左边明文显示的内容的长度
+  - rightNum 右边明文显示的内容的长度
+  - middleNum 中间隐藏内容的长度(默认0时,为减去leftNum和rightNum后的长度)
+  - secChar 设置密文的字符,默认为'*'
 - 示例:
 
 ```js
@@ -1067,9 +1067,9 @@ getSecStr(str,2,3,8); //结果同上,也可以以普通方法调用
 - 说明:对传入的字符串进行4位(spacePositions)隔一空格处理,比如,输入'432896549984326896532',则输出'4328 9654 9984 3268 9653 2'
 - 方法类型:both
 - 参数:
--- numStr 传入要处理的字符串
--- spacePositions 每隔多少位空一格空格(默认为4).spacePositions为数组时.比如[4,6,5],字符串为'432896549984326896532',则输出'4328 965499 84326 8965 32'
--- loop 表示是否循环,默认为true.false时,则输出'4328 965499 84326 896532',只执行一遍
+  - numStr 传入要处理的字符串
+  - spacePositions 每隔多少位空一格空格(默认为4).spacePositions为数组时.比如[4,6,5],字符串为'432896549984326896532',则输出'4328 965499 84326 8965 32'
+  - loop 表示是否循环,默认为true.false时,则输出'4328 965499 84326 896532',只执行一遍
 - 特殊用法:比如用户在输入银行卡号,身份证号时调用此方法让格式更清晰
 - 示例:
 
@@ -1090,8 +1090,8 @@ insertSpace(random,[2,4,3],false) //因为是both类型的方法,所以也可以
 
 - 说明:查找字符串中指定字符/字符串第n次出现的位置(找到返回对应位置的索引,没找到返回-1)
 - 参数:
--- findStr 要查找位置的字符/字符串
--- n 要找第n次出现的位置(默认为1,第一次出现的位置)
+  - findStr 要查找位置的字符/字符串
+  - n 要找第n次出现的位置(默认为1,第一次出现的位置)
 - 方法类型:baseOnInvadeScale
 - 示例:
 
@@ -1105,8 +1105,8 @@ str.indexdWithNum('root',3); //结果为16
 
 - 说明:字符串指定位置插入字符/字符串的方法(可以指定多个位置插入多个字符/字符串)
 - 参数:
--- inserts 表示要插入的字符/字符串(给出数组时,在多个位置插入多个字符串)
--- indexs 表示要插入的位置(给数组时在数组指定的多个位置插入)
+  - inserts 表示要插入的字符/字符串(给出数组时,在多个位置插入多个字符串)
+  - indexs 表示要插入的位置(给数组时在数组指定的多个位置插入)
 - 方法类型:baseOnInvadeScale
 - 示例:
 
@@ -1122,7 +1122,7 @@ str.insertToIndex([' love',' hate'],[1,7]) //结果为"I love you,I hate you"
 
 - 说明:获取一个字符串中一个指定字符/字符串或正则表达式出现次数
 - 参数:
--- strOrReg 要查找的字符串或正则表达式
+  - strOrReg 要查找的字符串或正则表达式
 - 方法类型:baseOnInvadeScale
 - 示例:
 
@@ -1136,8 +1136,8 @@ str.getStrCount(/ro.*?ot/g) //结果为4,注意,得加上修饰符g,不然会返
 
 - 说明:去除字符串(左右/所有)空格或指定字符
 - 参数:
--- type 要去除的位置.'all':所有,包括字符串中间的,'lr':左右(默认就是这个),'l':左,'r':右
--- char 要去除的字符,默认为空格' '
+  - type 要去除的位置.'all':所有,包括字符串中间的,'lr':左右(默认就是这个),'l':左,'r':右
+  - char 要去除的字符,默认为空格' '
 - 方法类型:both
 - 示例:
 
@@ -1154,7 +1154,7 @@ trimFunc(str,'l','-') //因为是both类型,也可以以普通方法的形式调
 
 - 说明:将字符串中的每个单词首字母大写
 - 参数:
--- ifOtherLower 如果除了首字母外其他字母有大写的话是否要转换为小写(默认为true)
+  - ifOtherLower 如果除了首字母外其他字母有大写的话是否要转换为小写(默认为true)
 - 方法类型:baseOnInvadeScale
 - 示例:
 
@@ -1173,7 +1173,7 @@ str.toUpperFirst(false); //结果为"I LovE YoU"
 
 - 说明:通过传入的文件字节大小格式化文件大小
 - 参数:
--- size 文件字节大小
+  - size 文件字节大小
 - 示例:
 
 ```js
@@ -1201,8 +1201,8 @@ getDirName('somedir/to/test.js') //"somedir/to"
 
 - 说明:返回文件的拓展名,haveDot表示是否带上"点"(.jpg还是jpg)
 - 参数:
--- filePath 文件路劲
--- haveDot 表示是否带上"点"(比如.jpg还是jpg)(默认为false)
+  - filePath 文件路劲
+  - haveDot 表示是否带上"点"(比如.jpg还是jpg)(默认为false)
 - 示例:
 
 ```js
@@ -1213,8 +1213,8 @@ getFileType('somedir/to/test.js') //结果为"js"
 
 - 说明:拼接路径和文件名
 - 参数:
--- dirPath 文件路劲
--- fileName 文件名
+  - dirPath 文件路劲
+  - fileName 文件名
 - 示例:
 
 ```js
@@ -1227,10 +1227,10 @@ pathJoin('somedir/to','test.js'); //结果为"somedir/to/test.js"
 
 - 说明:获取当前调用方法的方法名,并打印(调用时logFuncName(arguments))(常用于调试,在es6下的部分方法中会报错)
 - 参数:
--- args:要打印方法名的方法的arguments,要在方法中将arguments当做参数传进来(因为rn中没有arguments.caller)
--- otherStr:另外要打印到一起的字符串
--- char:在方法名的左右用什么符号来标记,默认为'-',给出空字符串时不要左右的字符
--- num:左右各多少个char字符,默认35个
+  - args:要打印方法名的方法的arguments,要在方法中将arguments当做参数传进来(因为rn中没有arguments.caller)
+  - otherStr:另外要打印到一起的字符串
+  - char:在方法名的左右用什么符号来标记,默认为'-',给出空字符串时不要左右的字符
+  - num:左右各多少个char字符,默认35个
 - 示例:
 
 ```js
@@ -1259,10 +1259,10 @@ getLorem(15) //指定单词数目为15.结果为"Lorem ipsum dolor sit amet, con
 
 - 说明:模拟网络获取数据方法,模拟分页请求网络数据(react-native-page-listview中的模拟数据就是通过这个方法获得的)
 - 参数:
--- pageLen 获得数据的每一页的数据条数(默认20条)
--- page 获得数据的页数(默认第1页)
--- ms 模拟多少毫秒后可以获得网络传输的数据(默认3000毫秒:即3秒)
--- max 模拟数据库中总共有多少条数据(默认最多100条,这时如果每页20条,第5页有数据,第6页就没有数据了)
+  - pageLen 获得数据的每一页的数据条数(默认20条)
+  - page 获得数据的页数(默认第1页)
+  - ms 模拟多少毫秒后可以获得网络传输的数据(默认3000毫秒:即3秒)
+  - max 模拟数据库中总共有多少条数据(默认最多100条,这时如果每页20条,第5页有数据,第6页就没有数据了)
 - 示例:
 
 ```js
